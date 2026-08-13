@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1786594462443,
+      "tag": "0000_yummy_meltdown",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1786594617294,
+      "tag": "0001_odd_kronos",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1786595011480,
+      "tag": "0002_pink_gamma_corps",
+      "breakpoints": true
+    }
+  ]
+}
