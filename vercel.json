@@ -1,4 +1,3 @@
 {
-  "buildCommand": "pnpm --dir webapp install --no-frozen-lockfile && pnpm --dir webapp build",
   "outputDirectory": "webapp/dist/public"
 }
