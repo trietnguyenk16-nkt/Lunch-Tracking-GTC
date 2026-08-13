@@ -1,4 +1,5 @@
 node_modules/
+dist/
 *.log
 create_issues.sh
 create_remaining_issues.sh
