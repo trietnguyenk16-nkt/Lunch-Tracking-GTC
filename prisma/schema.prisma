@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Employee {
+  id          String        @id @default(cuid())
+  name        String
+  avatarUrl   String?
+  active      Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  paidExpenses Expense[]    @relation("ExpensePayer")
+  shares      ExpenseShare[]
+  paymentsSent Payment[]    @relation("PaymentPayer")
+  paymentsReceived Payment[] @relation("PaymentPayee")
+
+  @@index([active, name])
+}
+
+model Expense {
+  id             String         @id @default(cuid())
+  name           String
+  category       String
+  amountMinor    Int
+  currency       String         @db.Char(3)
+  paidById       String
+  occurredAt     DateTime
+  notes          String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  paidBy         Employee       @relation("ExpensePayer", fields: [paidById], references: [id], onDelete: Restrict)
+  shares         ExpenseShare[]
+
+  @@index([occurredAt])
+  @@index([paidById])
+}
+
+model ExpenseShare {
+  expenseId    String
+  employeeId   String
+  amountMinor  Int
+  expense      Expense  @relation(fields: [expenseId], references: [id], onDelete: Restrict)
+  employee     Employee @relation(fields: [employeeId], references: [id], onDelete: Restrict)
+
+  @@id([expenseId, employeeId])
+  @@index([employeeId])
+}
+
+model Payment {
+  id          String   @id @default(cuid())
+  payerId     String
+  payeeId     String
+  amountMinor Int
+  currency    String   @db.Char(3)
+  paidAt      DateTime
+  note        String?
+  createdAt   DateTime @default(now())
+  payer       Employee @relation("PaymentPayer", fields: [payerId], references: [id], onDelete: Restrict)
+  payee       Employee @relation("PaymentPayee", fields: [payeeId], references: [id], onDelete: Restrict)
+
+  @@index([payerId, paidAt])
+  @@index([payeeId, paidAt])
+}
