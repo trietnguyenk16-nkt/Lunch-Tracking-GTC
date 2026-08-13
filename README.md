@@ -20,7 +20,7 @@ npm run typecheck
 npm test
 ```
 
-The domain entry points are currently `src/money.ts` and `src/settlement.ts`. The test suite in `test/settlement.test.ts` covers parsing, rounding, invalid inputs, conservation, deterministic settlement, zero balances, payment separation, and recomputation after expense changes.
+The domain entry points are currently `src/money.ts` and `src/settlement.ts`. `src/api.ts` provides the stable settlement response contract, and `src/dashboard.ts` converts that response into explicit dashboard labels and settled/action-needed states. The test suite covers parsing, rounding, invalid inputs, conservation, deterministic settlement, zero balances, payment separation, API shape, dashboard presentation, and recomputation after expense changes.
 
 ## Design boundary
 

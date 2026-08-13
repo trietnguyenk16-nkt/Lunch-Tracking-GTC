@@ -1,0 +1,5 @@
+node_modules/
+*.log
+create_issues.sh
+create_remaining_issues.sh
+debt_simplification_research.md
