@@ -2,22 +2,21 @@
 
 ## Current deployment boundary
 
-The repository now contains the PostgreSQL schema, initial migration, deterministic seed, local Docker Compose configuration, and a Vercel-compatible `/api/health` function. Production provisioning and deployment still require access to a PostgreSQL provider and a Vercel project; no database or Vercel credentials are committed to the repository.
+The repository now contains the PostgreSQL schema, initial migration, deterministic seed, and a Vercel-compatible `/api/health` function. Production provisioning and deployment still require access to a PostgreSQL provider and a Vercel project; no database or Vercel credentials are committed to the repository.
 
-## Local development
+## Database setup without Docker
 
-Copy `.env.example` to `.env`, start PostgreSQL, generate Prisma Client, apply migrations, and seed the database:
+Create a PostgreSQL database with a managed provider such as Supabase, Neon, or another PostgreSQL service. Copy `.env.example` to `.env` and replace the placeholder values with the provider's connection strings:
 
 ```bash
 cp .env.example .env
-docker compose up -d
 npm install
 npm run db:generate
 npm run db:migrate
 npm run db:seed
 ```
 
-The local database is available at `localhost:5432`. The schema uses integer minor-unit amounts and explicit currency codes. Historical expenses and payments use restrictive foreign keys so they cannot be deleted accidentally through a related employee deletion.
+Use the provider's pooled/runtime connection for `DATABASE_URL` and its direct connection for `DIRECT_URL`. The schema uses integer minor-unit amounts and explicit currency codes. Historical expenses and payments use restrictive foreign keys so they cannot be deleted accidentally through a related employee deletion.
 
 ## Production database
 
@@ -74,4 +73,4 @@ Vercel rollback should use the previous known-good deployment. Database rollback
 
 ## Manual access required
 
-The remaining manual steps are provider-account authentication, creation of the managed PostgreSQL project, insertion of environment variables into Vercel, and approval of the first production migration. These operations cannot be completed safely without the user's provider access and production project selection.
+The remaining manual steps are provider-account authentication, creation of the managed PostgreSQL project, insertion of environment variables into Vercel, approval of the first production migration, and deployment from the Vercel project. These operations cannot be completed safely without the user's provider access and production project selection. Docker is not required.
