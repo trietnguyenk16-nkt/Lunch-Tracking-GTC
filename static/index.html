@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lunch / Ledger</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark"></span><span>LUNCH / LEDGER</span></div>
+      <nav aria-label="Primary navigation">
+        <button class="nav-item active" data-view="overview">Overview</button>
+        <button class="nav-item" data-view="people">People</button>
+        <button class="nav-item" data-view="expenses">Expenses</button>
+        <button class="nav-item" data-view="settlements">Settlements</button>
+        <button class="nav-item" data-view="payments">Payments</button>
+        <button class="nav-item" data-view="activity">Activity</button>
+      </nav>
+      <div class="user-card"><span class="avatar">TK</span><div><strong>Team account</strong><small>Shared workspace</small></div></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar"><div><span class="eyebrow">SHARED LEDGER / 2026</span></div><span class="live-status"><i></i> Live updates every 5 seconds</span></header>
+      <section class="hero"><span class="eyebrow">THURSDAY · TEAM OVERVIEW</span><h1>The <em>balance</em><br>of things.</h1><p>A living picture of shared spending, kept exact to the cent and open to everyone on the team.</p><button class="button secondary" id="refreshButton">↻ Refresh ledger</button></section>
+
+      <section class="stats" aria-label="Ledger summary">
+        <article class="stat-card accent"><span>TO BE SETTLED</span><strong id="totalOwed">$0.00</strong><small>Across the current ledger</small></article>
+        <article class="stat-card gold"><span>ACTIVE PEOPLE</span><strong id="peopleCount">0</strong><small>Sharing the table</small></article>
+        <article class="stat-card dark"><span>EXPENSES LOGGED</span><strong id="expenseCount">0</strong><small>Immutable ledger entries</small></article>
+      </section>
+
+      <section id="overview" class="view active-view">
+        <div class="section-grid"><div><div class="section-heading"><span>01 · NET POSITION</span><h2>Who stands where</h2></div><div id="balanceList" class="balance-list empty">Add people and expenses to see balances.</div></div><aside class="suggestion-panel"><div class="section-heading"><span>02 · ADVISORY ONLY</span><h2>Suggested moves</h2></div><p>These transfers simplify the ledger. They are not payments until someone records them.</p><div id="suggestionList" class="suggestions">No transfers suggested.</div></aside></div>
+      </section>
+
+      <section id="people" class="view"><div class="section-heading"><span>03 · THE TABLE</span><h2>People</h2></div><form id="personForm" class="inline-form"><input id="personName" required placeholder="Person name"><button class="button primary" type="submit">Add person</button></form><div id="peopleList" class="record-list"></div></section>
+
+      <section id="expenses" class="view"><div class="section-heading"><span>04 · LEDGER ENTRIES</span><h2>Expenses</h2></div><form id="expenseForm" class="form-card"><div class="form-row"><label>What was it? <input id="expenseName" required placeholder="Team lunch"></label><label>Amount <input id="expenseAmount" required min="0.01" step="0.01" type="number" placeholder="0.00"></label></div><div class="form-row"><label>Paid by <select id="expensePayer" required></select></label><label>Split between <select id="expenseParticipants" multiple required></select></label></div><button class="button primary" type="submit">Log expense</button><p id="expenseMessage" class="form-message" role="status"></p></form><div id="expenseList" class="record-list"></div></section>
+
+      <section id="settlements" class="view"><div class="section-heading"><span>05 · ADVISORY</span><h2>Settlement suggestions</h2></div><div id="settlementList" class="settlement-list"></div></section>
+
+      <section id="payments" class="view"><div class="section-heading"><span>06 · COMPLETED MOVES</span><h2>Payments</h2></div><form id="paymentForm" class="form-card"><div class="form-row"><label>From <select id="paymentFrom" required></select></label><label>To <select id="paymentTo" required></select></label><label>Amount <input id="paymentAmount" required min="0.01" step="0.01" type="number" placeholder="0.00"></label></div><button class="button primary" type="submit">Record payment</button><p id="paymentMessage" class="form-message" role="status"></p></form><div id="paymentList" class="record-list"></div></section>
+
+      <section id="activity" class="view"><div class="section-heading"><span>07 · AUDIT TRAIL</span><h2>Activity</h2></div><div id="activityList" class="activity-list"></div></section>
+    </main>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>
